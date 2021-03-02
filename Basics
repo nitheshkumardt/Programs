@@ -1,0 +1,23 @@
+package com.company;
+
+public class MainProgram {
+
+    public static void main(String[] args) {
+        System.out.println("Program::1");
+        System.out.print("Basic Java Compilation");
+    }
+}
+
+
+public class prgm2 {
+    public static void main(String[] args){
+        System.out.println("Program-2");
+        int n=1;
+        String name="Nithesh";
+        //float f=1.0;
+        char c=name.charAt(0);
+        System.out.println("Integer-->"+n);
+        System.out.printf("%c-->\n",c);
+        System.out.print("String-->"+name);
+    }
+}
