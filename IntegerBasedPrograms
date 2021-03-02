@@ -1,0 +1,57 @@
+package com.company;
+import java.util.*;
+public class Programs {
+    public static int biggest(int n,int[] arr){
+        int i,max=0;
+        for(i=0;i<n;i++){
+            if(max<arr[i]){
+                max=arr[i];
+            }
+        }
+        return max;
+    }
+    public static void sortTheArray(int[] arr){
+        int i;
+        Arrays.sort(arr);
+        for(i=0;i<arr.length;i++){
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+    }
+    public static void fibonacciSeries(int n){
+        int i,n1=0,n2=1,n3=0;
+        for (i=1;i<=n;i++){
+            System.out.print(n2+" ");
+            n3=n2+n1;
+            n1=n2;
+            n2=n3;
+        }
+        System.out.println();
+    }
+    public static int factorial(int n){
+        int fact=1;
+        while(n>0){
+            fact*=n;
+            n--;
+        }
+        return fact;
+    }
+    public static void main(String[] args) {
+        Scanner scan=new Scanner(System.in);
+        int n= scan.nextInt();
+        //System.out.println(n);
+        int[] arr=new int[n];
+        int i,j;
+        for(i=0;i<n;i++){
+            arr[i]=scan.nextInt();
+        }
+        System.out.print("Biggest Number in the array::");
+        System.out.println(biggest(n,arr));
+        System.out.print("Sort  the Array::");
+        sortTheArray(arr);
+        System.out.print("Fibonacci series::");
+        fibonacciSeries(n);
+        System.out.print("Factorial of n numbers::");
+        System.out.println(factorial(n));
+    }
+}
