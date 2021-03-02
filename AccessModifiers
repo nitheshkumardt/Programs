@@ -1,0 +1,19 @@
+package com.company;
+class Example{
+    int n=1;
+    public int n1=10;
+    protected int n2=100;
+    private int n3=1000;
+    public int returnPrivate(){
+        return this.n3;
+    }
+}
+public class AccessModifiers {
+    public static void main(String args[]){
+        Example e=new Example();
+        System.out.println("Default-->"+e.n);
+        System.out.println("Public-->"+e.n1);
+        System.out.println("Protected-->"+e.n2);
+        System.out.println("Private-->"+e.returnPrivate());
+    }
+}
