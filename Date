@@ -1,0 +1,25 @@
+package com.company;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+public class DateFormate {
+    public static void main(String[] args) {
+        Date d=new Date();
+        System.out.println("Output-->"+d);
+        System.out.printf("%1$s %2$tB %2$td, %2$tY\n", "Due date:", d);
+        LocalDateTime timedate=LocalDateTime.now();
+        System.out.println("Output2-->"+timedate);
+        DateTimeFormatter form=DateTimeFormatter.ofPattern("dd:MM:YYYY");
+        String fd=timedate.format(form);
+        System.out.println("Date-->"+fd);
+        DateTimeFormatter form1=DateTimeFormatter.ofPattern("hh:mm:ss");
+        String fd1=timedate.format(form1);
+        System.out.println("Time-->"+fd1);
+        DateTimeFormatter form2=DateTimeFormatter.ofPattern("E");
+        String fd2=timedate.format(form2);
+        System.out.println("Week-->"+fd2);
+        DateTimeFormatter form3=DateTimeFormatter.ofPattern("MMM:dd:yyyy-E-hh:mm:ss");
+        String fd3=timedate.format(form3);
+        System.out.println("Full-->"+fd3);
+    }
+}
