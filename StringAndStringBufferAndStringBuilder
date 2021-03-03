@@ -1,0 +1,82 @@
+package com.company;
+import java.util.*;
+public class StringPrograms {
+    public static int stringSize(String str){
+        int n=0;
+        for(char c:str.toCharArray()) {
+            n++;
+        }
+        System.out.println("By Using Character Array::"+n);
+        n=0;
+        str+='\0';
+        for(int i=0;str.charAt(i)!='\0';i++){
+            n++;
+        }
+        System.out.println("Without Using Character Array::"+n);
+        return n;
+    }
+    public static String checkPalindrom(String str,int n){
+        int j=n-1;
+        str=str.toLowerCase();
+        for(int i=0;i<n;i++){
+            if(str.charAt(i)!=str.charAt(j)){
+                return "Not a Palindrome";
+            }
+            j--;
+        }
+        return "Palindrome";
+    }
+    public static void sortTheStringArray(String str){
+        String[] arr=str.split("");
+        int i,j;
+        String temp;
+        //Arrays.sort(arr);
+        for(i=0;i<arr.length;i++){
+            for (j=i+1;j<arr.length;j++){
+                if(arr[i].compareTo(arr[j])>0){
+                    temp=arr[i];
+                    arr[i]=arr[j];
+                    arr[j]=temp;
+                }
+            }
+        }
+        System.out.print("Sorted String Array:: ");
+        for(i=0;i<arr.length;i++){
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+    }
+    public static void stringBuffer(String str){
+        //Thread Safe
+        StringBuffer sb=new StringBuffer(str);
+        sb.append("IamHappy");
+        sb.delete(0,7);
+        System.out.println("Delete-->"+sb);
+        sb.reverse();
+        System.out.println("Reverse-->"+sb);
+        sb.append(1000);
+        System.out.println(sb);
+    }
+    public static void stringBuilder(String str){
+        //Faster
+        StringBuilder sb=new StringBuilder(str);
+        sb.append("Happytocu");
+        sb.delete(0,5);
+        System.out.println("Delete-->"+sb);
+        sb.reverse();
+        System.out.println("Reverse-->"+sb);
+
+    }
+    public static void main(String[] args){
+        Scanner scan=new Scanner(System.in);
+        String str1=scan.next();
+        //String str2=scan.next();
+        //System.out.println(str1+" "+str2);
+        int n=stringSize(str1);
+        //System.out.println(n);
+        System.out.println(checkPalindrom(str1,n));
+        sortTheStringArray(str1);
+        stringBuffer(str1);
+        stringBuilder(str1);
+    }
+}
