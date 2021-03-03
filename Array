@@ -1,0 +1,55 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class ArrayProblems {
+    public static int removeDuplicates(int[] arr) {
+        int i=1,n=arr.length,j;
+        while(i<n){
+            if(arr[i-1]==arr[i]){
+                for(j=i+1;j<n;j++){
+                    arr[j-1]=arr[j];
+                }
+                n=n-1;
+            }
+            else{
+                i++;
+            }
+        }
+        return n;
+    }
+    public static int[] twoSum(int[] nums, int target) {
+        int[] a=new int[2];
+        int i,j,n;
+        n=nums.length;
+        for(i=0;i<n;i++){
+            for(j=i+1;j<n;j++){
+                if(nums[i]+nums[j]==target){
+                    a[0]=i;
+                    a[1]=j;
+                    break;
+                    //return a;
+                }
+            }
+        }
+        return a;
+    }
+    public static void main(String[] args) {
+        Scanner s=new Scanner(System.in);
+        int n=s.nextInt();
+        int[] arr=new int[n];
+        for(int i=0;i<n;i++){
+            arr[i]=s.nextInt();
+        }
+        System.out.print("Enter the target ::");
+        int t=s.nextInt();
+        n=removeDuplicates(arr);
+        for(int i=0;i<n;i++){
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+        int[] arr1;
+        arr1=twoSum(arr,t);
+        System.out.println(arr1[0]+" "+arr1[1]);
+    }
+}
