@@ -1,0 +1,53 @@
+package com.company;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegularExpression {
+    public static void checkFirstUpper(String str){
+        Pattern p=Pattern.compile("^[A-Z]");
+        Matcher m=p.matcher(str);
+        if(m.find()){
+            System.out.println("First Letter is UpperCase");
+        }
+        else{
+            System.out.println("First Letter is not a UpperCase");
+        }
+    }
+    public static int checkNoOfDigits(String str){
+        Pattern p=Pattern.compile("[0-9]");
+        Matcher m=p.matcher(str);
+        int count=0;
+        while(m.find()){
+            count++;
+        }
+        return count;
+    }
+    public static int checkNoOfSpecialChar(String str){
+        Pattern p=Pattern.compile("\\W");
+        Matcher m=p.matcher(str);
+        int count=0;
+        while(m.find()){
+            count++;
+        }
+        return count;
+    }
+    public static void emailValidation(String str){
+        Pattern p=Pattern.compile("^[a-z]+[0-9a-z]*@[a-z]+.[a-z]{2,3}");
+        Matcher m=p.matcher(str);
+        if(m.find()){
+            System.out.println("Valid Email");
+        }
+        else{
+            System.out.println("Not Valid Email");
+        }
+    }
+    public static void main(String[] args) {
+        Scanner scan=new Scanner(System.in);
+        String str=scan.next();
+        checkFirstUpper(str);
+        System.out.println("No of Digits in String-->"+checkNoOfDigits(str));
+        System.out.println("No of Special Characters in String-->"+checkNoOfSpecialChar(str));
+        emailValidation(str);
+    }
+}
