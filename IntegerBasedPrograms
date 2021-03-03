@@ -11,8 +11,17 @@ public class Programs {
         return max;
     }
     public static void sortTheArray(int[] arr){
-        int i;
-        Arrays.sort(arr);
+        int i,j,temp=0;
+        //Arrays.sort(arr);
+        for(i=0;i<arr.length;i++){
+            for (j=i+1;j<arr.length;j++){
+                if(arr[i]>arr[j]){
+                    temp=arr[i];
+                    arr[i]=arr[j];
+                    arr[j]=temp;
+                }
+            }
+        }
         for(i=0;i<arr.length;i++){
             System.out.print(arr[i]+" ");
         }
@@ -29,12 +38,16 @@ public class Programs {
         System.out.println();
     }
     public static int factorial(int n){
-        int fact=1;
+        /*int fact=1;
         while(n>0){
             fact*=n;
             n--;
         }
-        return fact;
+        return fact;*/
+        if(n<=1){
+            return 1;
+        }
+        return factorial(n-1)*n;
     }
     public static void main(String[] args) {
         Scanner scan=new Scanner(System.in);
