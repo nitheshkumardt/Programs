@@ -1,0 +1,22 @@
+package com.company;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+public class CalendarFormate{
+    public static void main(String[] args) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar calendar = new GregorianCalendar();
+            System.out.println("Output-->"+dateFormat.format(calendar.getTime()));
+            System.out.println("ERA-->" + calendar.get(Calendar.ERA));
+            System.out.println("YEAR-->" + calendar.get(Calendar.YEAR));
+            System.out.println("MONTH-->" + calendar.get(Calendar.MONTH));
+        if(((GregorianCalendar) calendar).isLeapYear(calendar.get(Calendar.YEAR))) {
+            System.out.println("The current year is a leap year");
+        }else {
+            System.out.println("The current year is not a leap year");
+        }
+        }
+}
+
