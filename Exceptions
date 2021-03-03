@@ -1,0 +1,23 @@
+package com.company;
+
+public class ExceptionsHandling {
+    public static void main(String[] args) {
+        try {
+            int i=9/0;
+        }catch (Exception e){
+            System.out.println();
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+        String str="Welcome";
+        int n=0;
+        try{
+            for(int i=0;str.charAt(i)!='\0';i++){
+                n++;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("String Size::"+n);
+        }
+    }
+}
