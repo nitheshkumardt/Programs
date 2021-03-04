@@ -1,0 +1,60 @@
+package com.company;
+
+import java.util.*;
+
+public class ListSubclass {
+    public static void vectorFun(List arr,int n){
+        //JDK 1.0
+        Vector<Integer> v=new Vector<>();
+        for(int i=0;i<n;i++){
+            int ele= (int) arr.get(i);
+            v.add(ele);
+        }
+        for(int i:v){
+            System.out.print(i+" ");
+        }
+        System.out.println();
+    }
+    public static void arrayList(List li){
+        ArrayList<Integer> arr=new ArrayList<>();
+        arr.add(10);
+        arr.add(20);
+        //li.retainAll(arr);
+        int n=li.size();
+        li.add(1,50);
+        System.out.println("Add at Index 1:"+li);
+        li.remove(1);
+        System.out.println("Remove at Index 1:"+li);
+        Collections.sort(li);
+        System.out.println(li);
+    }
+    public static void linkedList(List li){
+        LinkedList<Integer> ll=new LinkedList<>(li);
+        ll.add(100);
+        ll.addFirst(0);
+        Iterator<Integer> it=ll.iterator();
+        while(it.hasNext()){
+            System.out.print(it.next()+" ");
+        }
+        System.out.println();
+        System.out.println("Peek Ele-->"+ll.peek());
+        System.out.println("Pop Ele-->"+ll.pop());
+        System.out.println("PollFirst Ele-->"+ll.pollFirst());
+        System.out.println("PollLast Ele-->"+ll.pollLast());
+        System.out.println(ll);
+    }
+    public static void main(String[] args) {
+        Scanner scan=new Scanner(System.in);
+        int n=scan.nextInt();
+        List<Integer> li=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            int in=scan.nextInt();
+            li.add(in);
+        }
+        System.out.println(li);
+        //System.out.println(li.get(0).getClass().getName());
+        vectorFun(li,n);
+        arrayList(li);
+        linkedList(li);
+    }
+}
