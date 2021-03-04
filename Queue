@@ -1,0 +1,74 @@
+package com.company;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+class Queues{
+    public int[] q=new int[100];
+    int rear=-1,front=-1;
+    public boolean isFull(){
+        if(rear>=100){
+            return true;
+        }
+        return false;
+    }
+    public boolean isEmpty(){
+        if(rear==-1){
+            return true;
+        }
+        return false;
+    }
+    public void enq(int ele){
+        if(!isFull()){
+            if(rear==-1){
+                rear+=1;
+                front+=1;
+            }else{
+                rear+=1;
+            }
+        }
+        q[rear]=ele;
+    }
+    public int deq(){
+        int ele=q[front];
+        if(!isEmpty()){
+            if(rear==front){
+                rear=front=-1;
+            }
+            else{
+                front=front+1;
+            }
+        }
+        return ele;
+    }
+    public void implementation(int n)
+    {
+        while(n>0){
+            enq(n%10);
+            n=n/10;
+        }
+        while(!isEmpty()){
+            System.out.println(deq());
+        }
+    }
+    public void inbuild(int n){
+        java.util.Queue<Integer> q=new LinkedList<Integer>();
+        while(n>0){
+            q.add(n%10);
+            n=n/10;
+        }
+        q.forEach(i->System.out.println(i));
+        System.out.println("Dequeue-->"+q.remove());
+        System.out.println("Peek-->"+q.peek());
+    }
+}
+public class QueueExample {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        Queues q1= new Queues();
+        q1.inbuild(n);
+        q1.implementation(n);
+    }
+}
