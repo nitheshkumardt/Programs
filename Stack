@@ -1,0 +1,71 @@
+package com.company;
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class StackExample {
+    static char[] s =new char[100];
+    public static int top=-1;
+    public static void inBulid(String str){
+        Stack<Character> stck=new Stack<>();
+        str+='\0';
+        for(int i=0;str.charAt(i)!='\0';i++){
+            if(str.charAt(i)=='{'){
+                stck.push(str.charAt(i));
+            }
+            else if(str.charAt(i)=='}'){
+                stck.pop();
+            }
+        }
+        if(stck.isEmpty()){
+            System.out.println("Balanced");
+        }
+        else{
+            System.out.println("Not Balanced");
+        }
+    }
+    public static void push(char c){
+        if(!isFull()){
+            s[++top]=c;
+        }
+    }
+    public static boolean isFull(){
+        if(top>=100)
+            return true;
+        return false;
+    }
+    public static void pop(){
+        if(!isEmpty()){
+            top=top-1;
+        }
+    }
+    public static boolean isEmpty(){
+        if(top==-1){
+            return true;
+        }
+        return false;
+    }
+    public static void implementation(String str){
+        str+='\0';
+        for(int i=0;str.charAt(i)!='\0';i++){
+            if(str.charAt(i)=='{'){
+                push(str.charAt(i));
+            }
+            else if(str.charAt(i)=='}'){
+                pop();
+            }
+        }
+        if(isEmpty()){
+            System.out.println("Balanced");
+        }
+        else{
+            System.out.println("Not Balanced");
+        }
+    }
+    public static void main(String[] args) {
+        Scanner scan=new Scanner(System.in);
+        String s=scan.next();
+        inBulid(s);
+        implementation(s);
+    }
+}
