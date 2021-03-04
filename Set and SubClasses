@@ -1,0 +1,51 @@
+package com.company;
+
+import java.util.*;
+
+public class HashListTreeSet {
+    public static void hashSet(String[] str){
+        Set<String> hs=new HashSet<>();
+        int i;
+        for(i=0;i<str.length;i++){
+            hs.add(str[i]);
+        }
+        System.out.println(hs);
+    }
+    public static void linkedHashSet(String[] str){
+        Set<String> ls=new LinkedHashSet<>(Arrays.asList(str));
+        int i;
+        /*for(i=0;i<str.length;i++){
+            hs.add(str[i]);
+        }*/
+        System.out.println(ls);
+        ls.removeIf(str1->(str1.contains("alpha")));
+        System.out.println(ls);
+    }
+    public static void treeSet(String[] str){
+        Set<String> ts=new TreeSet<>();
+        int i;
+        Collections.addAll(ts,str);
+        /*for(i=0;i<str.length;i++){
+            hs.add(str[i]);
+        }*/
+        if(ts.contains("alpha")){
+            ts.remove("alpha");
+        }
+        else{
+            System.out.println("No Alpha");
+        }
+        System.out.println(ts);
+    }
+    public static void main(String[] args) {
+        Scanner scan=new Scanner(System.in);
+        int n=scan.nextInt();
+        String[] str=new String[n];
+        for(int i=0;i<n;i++){
+            str[i]=scan.next();
+        }
+        //System.out.println(str.toString());
+        hashSet(str);
+        linkedHashSet(str);
+        treeSet(str);
+    }
+}
