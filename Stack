@@ -6,24 +6,6 @@ import java.util.Stack;
 public class StackExample {
     static char[] s =new char[100];
     public static int top=-1;
-    public static void inBulid(String str){
-        Stack<Character> stck=new Stack<>();
-        str+='\0';
-        for(int i=0;str.charAt(i)!='\0';i++){
-            if(str.charAt(i)=='{'){
-                stck.push(str.charAt(i));
-            }
-            else if(str.charAt(i)=='}'){
-                stck.pop();
-            }
-        }
-        if(stck.isEmpty()){
-            System.out.println("Balanced");
-        }
-        else{
-            System.out.println("Not Balanced");
-        }
-    }
     public static void push(char c){
         if(!isFull()){
             s[++top]=c;
@@ -56,6 +38,24 @@ public class StackExample {
             }
         }
         if(isEmpty()){
+            System.out.println("Balanced");
+        }
+        else{
+            System.out.println("Not Balanced");
+        }
+    }
+    public static void inBulid(String str){
+        Stack<Character> stck=new Stack<>();
+        str+='\0';
+        for(int i=0;str.charAt(i)!='\0';i++){
+            if(str.charAt(i)=='{'){
+                stck.push(str.charAt(i));
+            }
+            else if(str.charAt(i)=='}'){
+                stck.pop();
+            }
+        }
+        if(stck.isEmpty()){
             System.out.println("Balanced");
         }
         else{
