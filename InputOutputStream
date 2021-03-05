@@ -1,0 +1,62 @@
+package com.company;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
+public class InputOutputStream {
+    static File f1,f2,f3;
+    public static void display1() throws IOException {
+        InputStream is=new FileInputStream(f1);
+        int i= is.read();
+        while(i!=-1){
+            System.out.print((char) i);
+            i= is.read();
+        }
+    }
+    public static void display2() throws IOException {
+        InputStream is=new FileInputStream(f2);
+        int i= is.read();
+        while(i!=-1){
+            System.out.print((char) i);
+            i= is.read();
+        }
+    }
+    public static void display3() throws IOException {
+        InputStream is=new FileInputStream(f3);
+        int i= is.read();
+        while(i!=-1){
+            System.out.print((char) i);
+            i= is.read();
+        }
+    }
+    public static void writeString() throws IOException {
+        OutputStream os=new FileOutputStream(f3);
+        String str="Life is very Short Nanba.Always be happy.";
+        os.write(str.getBytes());
+        System.out.println("Successfull Inserted a String");
+        display3();
+    }
+    public static void combinationoftwoFile() throws IOException {
+        OutputStream os=new FileOutputStream(f3);
+        InputStream is=new FileInputStream(f1);
+        InputStream is1=new FileInputStream(f2);
+        SequenceInputStream sis=new SequenceInputStream(is,is1);
+        int i;
+        while((i=sis.read())!=-1){
+            os.write((char)i);
+        }
+        System.out.println("Succesfully inserted");
+        display3();
+    }
+    public static void main(String[] args) throws IOException {
+        f1=new File("C:\\Users\\Nithesh Kuma D\\Desktop\\Java\\name1.txt");
+        f2=new File("C:\\Users\\Nithesh Kuma D\\Desktop\\Java\\name2.txt");
+        f3=new File("C:\\Users\\Nithesh Kuma D\\Desktop\\Java\\name3.txt");
+        //display1();
+        //display2();
+        //display3();
+        writeString();
+        System.out.println();
+        combinationoftwoFile();
+    }
+}
