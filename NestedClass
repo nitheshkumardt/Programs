@@ -1,0 +1,45 @@
+package com.company;
+
+import java.util.Scanner;
+
+import static java.lang.Math.abs;
+
+class Caluclation{
+    class Operation{
+        public void add(int n,int n2){
+            System.out.println("Sum-->"+(n+n2));
+        }
+        public void sub(int n,int n2){
+            System.out.println("Subration-->"+abs(n-n2));
+        }
+        public void multi(int n,int n2){
+            System.out.println("Multiplication-->"+n*n2);
+        }
+        public void div(int n,int n2){
+            System.out.println("Division-->"+n/n2);
+        }
+    }
+}
+
+public class NestedClasses {
+    static class StaticClass{
+        public static void display(){
+            System.out.println("Static Class Created Successfully");
+        }
+    }
+    public static void main(String[] args) {
+        NestedClasses nc=new NestedClasses();
+        NestedClasses.StaticClass sc=new NestedClasses.StaticClass();
+        sc.display();
+        Caluclation cal=new Caluclation();
+        Caluclation.Operation op=cal.new Operation();
+        System.out.println("Enter two numbers for Calculation:::");
+        Scanner s=new Scanner(System.in);
+        int n1=s.nextInt();
+        int n2=s.nextInt();
+        op.add(n1,n2);
+        op.sub(n1,n2);
+        op.multi(n1,n2);
+        op.div(n1,n2);
+    }
+}
