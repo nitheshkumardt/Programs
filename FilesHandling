@@ -1,0 +1,91 @@
+package com.company;
+
+import java.io.*;
+
+public class FilesHandling {
+    public static File file,file1;
+    public static void display1() throws IOException {
+        InputStream is=new FileInputStream(file);
+        int i= is.read();
+        while(i!=-1){
+            System.out.print((char) i);
+            i= is.read();
+        }
+    }
+    public static void display2() throws IOException {
+        InputStream is=new FileInputStream(file1);
+        int i= is.read();
+        while(i!=-1){
+            System.out.print((char) i);
+            i= is.read();
+        }
+    }
+    public static void display3() throws IOException {
+        FileReader fileReader1=new FileReader(file1);
+        BufferedReader bufferedReader=new BufferedReader(fileReader1);
+        String str=bufferedReader.readLine();
+        while(str!=null){
+                System.out.println(str);
+                str=bufferedReader.readLine();
+        }
+    }
+    public static void writeFile() throws IOException {
+        FileWriter fwriter=new FileWriter(file,true);
+        fwriter.write("India ");
+        fwriter.write("USA ");
+        fwriter.write("UK ");
+        fwriter.write("Japan ");
+        fwriter.flush();
+        fwriter.close();
+        System.out.println("Successfull Inserted-->1");
+        display1();
+    }
+    public static void bufferwrite() throws IOException {
+        FileWriter fileWriter1=new FileWriter(file1);
+        BufferedWriter bufferedWriter=new BufferedWriter(fileWriter1);
+        bufferedWriter.write("India");
+        bufferedWriter.newLine();
+        bufferedWriter.write("USA");
+        bufferedWriter.newLine();
+        bufferedWriter.write("UK");
+        bufferedWriter.newLine();
+        bufferedWriter.write("Japan.");
+        bufferedWriter.flush();
+        bufferedWriter.close();
+        System.out.println("Successfull Inserted-->2");
+        display2();
+    }
+    public static void writefromanotherfile() throws IOException {
+        FileWriter fwriter=new FileWriter(file1);
+        FileReader fileReader1=new FileReader(file);
+        BufferedReader bufferedReader=new BufferedReader(fileReader1);
+        int i=bufferedReader.read();
+        while (i!=-1){
+            //System.out.print((char)i);
+            fwriter.write(i);
+            i=bufferedReader.read();
+        }
+        fwriter.flush();
+        System.out.println("Successfull Inserted-->3");
+        fwriter.close();
+        display2();
+    }
+    public static void main(String[] args) throws IOException {
+
+        try{
+            file=new File("C:\\Users\\Nithesh Kuma D\\Desktop\\Java\\name1.txt");
+            file1=new File("C:\\Users\\Nithesh Kuma D\\Desktop\\Java\\name2.txt");
+            //if(!file.exists())
+              //  file.mkdir();
+            //if(!file.exists())
+            // System.out.println("File Created::"+file.createNewFile());
+            writeFile();
+            System.out.println();
+            bufferwrite();
+            System.out.println();
+            writefromanotherfile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
