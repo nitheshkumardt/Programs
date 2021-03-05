@@ -1,0 +1,52 @@
+package com.company;
+abstract class Bike{
+    void name(){
+        System.out.println("Bike::");
+    }
+    abstract void speed();
+}
+class Yamaha extends Bike{
+    @Override
+    void name(){
+        System.out.println("Super Bike::");
+    }
+    @Override
+    void speed() {
+        System.out.println("R15 To Speed 141Kmhs");
+    }
+}
+class Honda extends Bike{
+
+    @Override
+    void speed() {
+        System.out.println("Hornut Top Speed 120Kmhs");
+    }
+}
+interface interface1{
+    void  display(int i);
+}
+class inter1 implements interface1{
+    public void display(int i) {
+        System.out.println(i);
+    }
+}
+interface  inteface2{
+    void display(int i);
+}
+public class InterfaceAbstract {
+    public static void main(String[] args) {
+        Yamaha y=new Yamaha();
+        y.name();
+        y.speed();
+        Honda h=new Honda();
+        h.name();
+        h.speed();
+        interface1 in=new inter1();
+        int n=7;
+        //System.out.println(in.display(n));
+        in.display(n);
+        inteface2 in2;
+        in2= i -> System.out.println(i);
+        in2.display(n);
+    }
+}
