@@ -1,0 +1,158 @@
+package com.company;
+import static java.lang.Thread.sleep;
+
+
+class Counter{
+    int count;
+    boolean ch=false;
+    /*public void increment(){
+        count++;
+    }*/
+    public synchronized void increment(){
+        count++;
+    }
+    public synchronized void setIncrement(int count){
+        while (ch){
+            try {
+                wait();
+            }catch (Exception e){}
+        }
+        System.out.println("Set::"+count);
+        this.count=count;
+        ch=true;
+        notify();
+    }
+    public synchronized void getIncrement(){
+        while (!ch){
+            try {
+                wait();
+            }catch (Exception e){}
+        }
+        System.out.println("Get::"+count);
+        ch=false;
+        notify();
+    }
+}
+class SetIncrement implements Runnable{
+    Counter c;
+    SetIncrement(Counter c) {
+        this.c=c;
+        Thread th=new Thread(this);
+        th.start();
+
+    }
+    public void run() {
+        int c1=0;
+        for (int i = 1; i <=100; i++) {
+            c.setIncrement(c1++);
+            try{sleep(500);}catch (Exception e){}
+        }
+    }
+}
+class GetIncrement implements Runnable{
+    Counter c;
+    GetIncrement(Counter c) {
+        this.c=c;
+        Thread th1=new Thread(this);
+        th1.start();
+
+    }
+    public void run() {
+        for (int i = 1; i <= 100; i++) {
+            c.getIncrement();
+            try{sleep(5000);}catch (Exception e){}
+        }
+    }
+}
+
+public class MultiThreading {
+    public static void main(String[] args) throws Exception{
+        //withOutThreads();
+        // withThreads();
+        //countThread();
+        Counter c=new Counter();
+        new SetIncrement(c);
+        new GetIncrement(c);
+    }
+    public static void withOutThreads(){
+        long start=System.currentTimeMillis();
+        int count=0;
+        for(int i=0;i<5;i++){
+            System.out.println(count++);
+        }
+        long end=System.currentTimeMillis();
+        System.out.println("Time Taken ::"+(end-start));
+    }
+    public static void withThreads(){
+        /*Runnable r1=()->{
+                for (int i = 0; i < 5; i++) {
+                    System.out.println(i);
+                    try{sleep(500);}catch (Exception e){}
+                }
+        };
+        Runnable r2=()->{
+            for (int i = 0; i < 5; i++) {
+                System.out.println(i);
+                try{sleep(500);}catch (Exception e){}
+            }
+        };
+        Thread t1=new Thread(r1);
+        Thread t2=new Thread(r2);*/
+        Thread t1=new Thread(()->{
+            for (int i = 0; i < 5; i++) {
+                System.out.println(i);
+                try{sleep(500);}catch (Exception e){}
+            }
+        });
+        Thread t2=new Thread(()->{
+            for (int i = 0; i < 5; i++) {
+                System.out.println(i);
+                try{sleep(500);}catch (Exception e){}
+            }
+        });
+        t1.start();
+        t2.start();
+    }
+    public static void countThread() throws Exception{
+        Counter c=new Counter();
+        //c.increment();
+        Thread t1=new Thread(new Runnable() {
+            public void run() {
+                for (int i =1; i<=1000; i++) {
+                    c.increment();
+                }
+            }
+        });
+        Thread t2=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i =1; i<=1000; i++) {
+                    c.increment();
+                }
+            }
+        });
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println(c.count);
+    }
+}
+/*class Thread1 extends Thread{
+    public void run() {
+        int count = 0;
+        for (int i = 0; i < 5; i++) {
+            System.out.println(count++);
+            try{sleep(500);}catch (Exception e){}
+        }
+    }
+}
+class Thread2 extends Thread{
+    int count = 0;
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println(count++);
+            try{sleep(500);}catch (Exception e){}
+        }
+    }
+}*/
