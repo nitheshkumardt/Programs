@@ -2,33 +2,54 @@ package com.company;
 
 import java.io.*;
 
-class Person implements Serializable{
+//class Student implements Serializable{
+class Student{
     String username="Nithesh";
     transient String password="Monarch";
     static int rollnumber=122;
-    final int marks;
+    final int marks=100;
 
-   Person(String nithesh, String monarch, int i, int marks) {
+   /*Student(String nithesh, String monarch, int i, int marks) {
         this.username=username;
         this.password=password;
         this.rollnumber=rollnumber;
         this.marks = marks;
     }
+    private void writeObject(ObjectOutputStream objectOutputStream) throws Exception{
+       objectOutputStream.defaultWriteObject();
+       this.password="Nit"+this.password;
+       objectOutputStream.writeObject(password);
+    }
+    private void readObject(ObjectInputStream objectInputStream) throws Exception{
+        objectInputStream.defaultReadObject();
+        this.password=(String) objectInputStream.readObject();
+        this.password=this.password.substring(3);
+    }*/
+}
+class Course extends Student implements Serializable{
+    String course="IT";
+    //Course(String nithesh, String monarch, int i, int marks,String course){
+        //super(nithesh,monarch,i,marks);
+      //  this.course=course;
+    //}
 }
 public class SerializationDeserialization {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Person p=new Person("Nithesh","Monarch",122,499);
+        //Course c=new Course("Nithesh","Monarch",122,499,"Information Technology");
         //Person p=new Person();
+        Course c=new Course();
         OutputStream fl=new FileOutputStream("D:\\Programs\\Serialization.txt");
         ObjectOutputStream objectOutputStream=new ObjectOutputStream(fl);
-        objectOutputStream.writeObject(p);
+        objectOutputStream.writeObject(c);
         String str="Happiness";
         objectOutputStream.writeUTF(str);
         objectOutputStream.flush();
         objectOutputStream.close();
         InputStream inputStream=new FileInputStream("D:\\Programs\\Serialization.txt");
         ObjectInputStream objectInputStream=new ObjectInputStream(inputStream);
-        Person p1=(Person) objectInputStream.readObject();
-        System.out.println(p1.username+" "+p1.password+" "+p1.rollnumber+" "+p1.marks+" "+objectInputStream.readUTF());
+        //Person p1=(Person) objectInputStream.readObject();
+        Course c1=(Course) objectInputStream.readObject();
+        //System.out.println(p1.username+" "+p1.password+" "+p1.rollnumber+" "+p1.marks+" "+objectInputStream.readUTF());
+        System.out.println(c1.username+" "+c1.password+" "+c1.rollnumber+" "+c1.marks+" "+c1.course);
     }
 }
