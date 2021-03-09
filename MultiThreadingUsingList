@@ -1,0 +1,83 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
+
+public class MultiThreadingUsingList extends Thread{
+    public static void vectorThread()throws Exception{
+        Vector<Integer> v=new Vector<>();
+        for (int i=0;i<50;i++)
+            v.add(i);
+        //v.forEach(System.out::println);
+        Thread t1=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    displayVector(v);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Thread t2=new Thread(()->{
+            try {
+                displayVector(v);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+    }
+    public static void displayVector(Vector v)throws Exception{
+        for(Object i:v){
+            System.out.println(i);
+            try {
+                sleep(500);
+            }catch (Exception e){}
+        }
+    }
+    public static void listThread() throws  Exception{
+        //List<Integer> li= Collections.synchronizedList(new ArrayList<>());
+        List<Integer> li=new ArrayList<>();
+        for (int i=0;i<50;i++)
+            li.add(i);
+        Thread t3=new Thread(()->{
+            try {
+                displayList(li);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        Thread t4=new Thread(()->{
+            try {
+                displayList(li);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        t3.start();
+        t4.start();
+        t3.join();
+        t4.join();
+    }
+    public static void displayList(List<Integer> li){
+        li.forEach(i -> {
+            System.out.println(i);
+            try {
+                sleep(500);
+            } catch (Exception e) {
+            }
+        });
+    }
+    public static void main(String[] args) throws Exception {
+        System.out.println("Vector Thread");
+        vectorThread();
+        System.out.println("List Thread");
+        listThread();
+    }
+}
