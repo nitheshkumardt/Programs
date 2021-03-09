@@ -1,0 +1,110 @@
+
+PersonalDetails
+
+package com.designpattern;
+
+public class PersonalDetails {
+    String name;
+    String dob;
+    String street;
+    String town;
+    String city;
+    String phoneNumber;
+    int pincode;
+
+    public PersonalDetails(String name, String dob, String street, String town, String city, String phoneNumber, int pincode) {
+        this.name = name;
+        this.dob = dob;
+        this.street = street;
+        this.town = town;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.pincode = pincode;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonalDetails{" +
+                "name='" + name + '\'' +
+                ", dob='" + dob + '\'' +
+                ", street='" + street + '\'' +
+                ", town='" + town + '\'' +
+                ", city='" + city + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", pincode=" + pincode +
+                '}';
+    }
+}
+
+
+BuilterPattern
+
+package com.designpattern;
+
+public class BuilderPattern {
+    String name;
+    String dob;
+    String street;
+    String town;
+    String city;
+    String phoneNumber;
+    int pincode;
+
+    public BuilderPattern setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public BuilderPattern setDob(String dob) {
+        this.dob = dob;
+        return this;
+    }
+
+    public BuilderPattern setStreet(String street) {
+        this.street = street;
+        return this;
+    }
+
+    public BuilderPattern setTown(String town) {
+        this.town = town;
+        return this;
+    }
+
+    public BuilderPattern setCity(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public BuilderPattern setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public BuilderPattern setPincode(int pincode) {
+        this.pincode = pincode;
+        return this;
+    }
+    public PersonalDetails getPersonalDetails(){
+        return new PersonalDetails(name,dob,street,town,city,phoneNumber,pincode);
+    }
+}
+
+
+MainPattern
+package com.designpattern;
+
+public class MainBuilder {
+    public static void main(String[] args) {
+        PersonalDetails pd,pd1;
+        pd = new PersonalDetails("Nithesh",
+                "30-01-2000",
+                "Unjapalayam",
+                "Avinashi",
+                "Tirupur",
+                "7502848585",
+                641654);
+        System.out.println(pd.toString());
+        pd1=new BuilderPattern().setName("KUMAR").setCity("Coimbatore").getPersonalDetails();
+        System.out.println(pd1.toString());
+    }
+}
