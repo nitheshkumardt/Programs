@@ -1,0 +1,76 @@
+MobileOs
+
+package com.designpattern;
+
+public class MobileOs {
+    public static void main(String[] args) {
+        OS n;
+        n = FactoryPattern.getOS("APPLE");
+        System.out.println(n.uses());
+        Runtime r1=Runtime.getRuntime();
+        System.out.println(r1.availableProcessors());
+    }
+}
+
+
+
+FactoryPattern
+
+
+package com.designpattern;
+
+public class FactoryPattern {
+    //public static OS getOS;
+
+    //public static OS getOS(String choice) {
+
+
+    public static OS getOS(String choice){
+        choice=choice.toLowerCase();
+        switch (choice){
+            case "apple":return new IOS();
+            case "nokia":return new Windows();
+            default:return new Android();
+        }
+    }
+}
+
+
+package com.designpattern;
+
+public abstract class OS {
+    public abstract String uses();
+}
+
+
+package com.designpattern;
+
+public class Android extends OS {
+    public String uses(){
+        return "Android is the most customizable, making it a good fit for power users";
+    }
+}
+
+
+
+package com.designpattern;
+
+public class IOS extends OS {
+    public String uses(){
+
+        return "iOS is a closed system .Safty";
+    }
+}
+
+
+
+
+
+package com.designpattern;
+
+public class Windows extends OS {
+    public String uses(){
+        return  "Windows Phone boasts a user-friendly interface and handy features such as Live Tiles.";
+    }
+}
+
