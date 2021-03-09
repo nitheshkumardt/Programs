@@ -1,0 +1,17 @@
+package com.designpattern;
+class Single{
+    private static Single s=new Single();
+    private Single(){}
+    public static Single getObject(){
+        return s;
+    }
+    public void display(){
+        System.out.println("Itz Singleton Class");
+    }
+}
+public class SigletonClass {
+    public static void main(String[] args) {
+        Single s=Single.getObject();
+        s.display();
+    }
+}
