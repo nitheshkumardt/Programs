@@ -1,0 +1,61 @@
+package com.company;
+
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class Students{
+    int rollnum;
+    String name;
+    int mark;
+    String course;
+    Students(int rollnum,String name,int mark,String course){
+        this.rollnum=rollnum;
+        this.name=name;
+        this.mark=mark;
+        this.course=course;
+    }
+    public String toString(){
+        return this.rollnum+" "+this.name+" "+this.mark+" "+this.course;
+    }
+}
+
+public class StreamsAndLambda {
+    static ArrayList<Students> li=new ArrayList<>();
+    public static void getMarksabove90(){
+        li.stream()
+                .filter(i->i.mark>=90)
+                .forEach(System.out::println);
+    }
+    public static void getNames(){
+        List<String> name=li.stream()
+                .map(name1->name1.name)
+                .collect(Collectors.toList());
+        System.out.println(name);
+    }
+    public static void sumOfMarks(){
+        int total=li.stream()
+                .collect(Collectors.summingInt(marks1->marks1.mark));
+        System.out.println(total);
+    }
+    public static void sortUsingLambda(){
+        Collections.sort(li,(s1,s2)->s1.mark-s2.mark);
+        System.out.println(li);
+    }
+    public static void main(String[] args) {
+        li.add(new Students(101,"Abi",91,"CSE"));
+        li.add(new Students(102,"Bala",71,"IT"));
+        li.add(new Students(103,"Chandru",66,"ECE"));
+        li.add(new Students(104,"Dhiva",100,"IT"));
+        li.add(new Students(105,"Jeffu",88,"EEE"));
+        li.add(new Students(106,"Logu",55,"ETE"));
+        li.add(new Students(107,"Manoj",35,"MECH"));
+        System.out.println(li);
+        getMarksabove90();
+        getNames();
+        sumOfMarks();
+        sortUsingLambda();
+    }
+}
