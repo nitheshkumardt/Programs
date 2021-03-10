@@ -1,0 +1,62 @@
+package com.company;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+
+public class ExractZip {
+    public static StringBuffer sb;
+    public static void  Extracting(String str,ZipInputStream zs) throws IOException {
+        File f1=new File(str);
+        f1.createNewFile();
+        System.out.println(f1);
+        //sb.append(f1.getName());
+        OutputStream outputStream=new FileOutputStream(f1);
+        byte[] b=new byte[100];
+        int read=0;
+        while ((read=zs.read(b))!=-1){
+            outputStream.write(b,0,read);
+        }
+        outputStream.flush();
+        String c="public";
+        try(Stream<String> stream= Files.lines(Paths.get(String.valueOf(f1)))){
+            stream.filter(str1->str1.contains(c)).
+                    map(line->line.trim()
+                            .replaceAll("public","")
+                            .replace("()","")
+                            .replace("{",""))
+                    .forEach(System.out::println);
+        }catch (Exception e){
+            System.out.println("Error");
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        InputStream is=new FileInputStream("D:\\Programs\\Assignment1.zip");
+        //OutputStream os=new FileOutputStream("D:\\Programs\\src");
+        File f=new File("D:\\Programs\\zip");
+        if(!f.exists())
+            f.mkdir();
+        ZipInputStream zs=new ZipInputStream(is);
+        ZipEntry ze=zs.getNextEntry();
+        while (ze!=null){
+            String str;
+            str =f+ File.separator+ze.getName();
+            if(!ze.isDirectory()){
+                if(str.endsWith(".java"))
+                    Extracting(str,zs);
+            }
+            else{
+                File f1=new File(str);
+                f1.mkdirs();
+            }
+
+            ze=zs.getNextEntry();
+        }
+        //System.out.println(sb);
+
+    }
+}
