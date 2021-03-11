@@ -1,0 +1,52 @@
+
+
+Browser.java
+
+package com.designpattern;
+
+public class Browser {
+    public static void main(String[] args) throws Exception {
+        ProxyWeb proxyWeb=new ProxyWeb();
+        proxyWeb.Proxy("www.facebook.com");
+    }
+}
+
+
+ProxyWeb.java
+
+package com.designpattern;
+
+public class ProxyWeb {
+    private WebPageloader webPageloader;
+    public ProxyWeb() {
+        webPageloader=new WebPageloader();
+    }
+    public void Proxy(String url) throws Exception {
+        if(url.equalsIgnoreCase("www.whatsapp.com")){
+            throw new Exception("Whatsapp is not allowed");
+        }
+        else{
+            webPageloader.LoadWebPage(url);
+        }
+    }
+}
+
+
+WebPage.java
+
+package com.designpattern;
+
+public interface WebPage {
+    public void LoadWebPage(String url)throws Exception;
+}
+
+WebPageloader.java
+
+package com.designpattern;
+
+public class WebPageloader implements WebPage{
+    @Override
+    public void LoadWebPage(String url) throws Exception{
+        System.out.println("WebPage Loaded Sucessfully:::"+url);
+    }
+}
