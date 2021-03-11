@@ -1,0 +1,70 @@
+
+
+package com.Assignment2.ThreadPool;
+
+import java.util.concurrent.Callable;
+
+public class ThreadPoolUsingCallable implements Callable {
+    private int n1;
+    private int n2;
+
+    public ThreadPoolUsingCallable(int n1, int n2) {
+        this.n1 = n1;
+        this.n2 = n2;
+    }
+
+    public Object call() throws Exception {
+        int op;
+        System.out.println(Thread.currentThread().getName());
+        if(n1>n2){
+            op=n1+n2;
+            System.out.println("Addition of two numbers using Thread");
+        }
+        else{
+            op=n2-n1;
+            System.out.println("Subration of two numbers using Thread");
+        }
+        return op;
+    }
+}
+
+
+
+
+
+package com.Assignment2.ThreadPool;
+
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.concurrent.*;
+
+import static java.lang.Thread.sleep;
+
+
+public class MainClass {
+  public static void callable() throws ExecutionException, InterruptedException {
+        System.out.println("\nCallable:::");
+        ThreadPoolExecutor executorService1= (ThreadPoolExecutor) Executors.newFixedThreadPool(4);
+        ArrayList<ThreadPoolUsingCallable> li=new ArrayList<ThreadPoolUsingCallable>();
+        li.add(new ThreadPoolUsingCallable(4,5));
+        li.add(new ThreadPoolUsingCallable(19,32));
+        li.add(new ThreadPoolUsingCallable(199,150));
+        li.add(new ThreadPoolUsingCallable(38,22));
+        li.add(new ThreadPoolUsingCallable(128,127));
+        li.add(new ThreadPoolUsingCallable(777,999));
+        for(ThreadPoolUsingCallable i:li){
+            Future f=executorService1.submit(i);
+            System.out.println(f.get());
+        }
+        executorService1.shutdown();
+        while (!executorService1.isTerminated()){}
+    }
+    
+        public static void main(String[] args) throws ExecutionException, InterruptedException {
+        //runnable();
+        //callable();
+        Properties p=System.getProperties();
+        System.out.println(p);
+        System.out.println("\n<---All Thread Runned Sucessfully--->\n");
+    }
+}
