@@ -1,0 +1,63 @@
+InterfaceProxy.java
+
+package com.designpattern;
+
+public interface InterfaceProxy {
+    public  void proxy();
+}
+
+ImplementsInterface.java
+
+package com.designpattern;
+
+public class ImplementsInterface implements InterfaceProxy{
+    @Override
+    public void proxy() {
+     System.out.println("Dynamic Proxy Created Successfully");
+    }
+
+}
+
+
+DynamicProxyclass.java
+
+package com.designpattern;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class DynamicProxyclass implements InvocationHandler {
+    private  Object ob;
+
+    public DynamicProxyclass(Object ob) {
+        this.ob = ob;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println("Dynamic Proxy-->"+ method.getName());
+        Object result=method.invoke(ob,args);
+        return result;
+    }
+}
+
+
+DynamicProxyMain
+
+package com.designpattern;
+
+import java.lang.reflect.Proxy;
+
+public class DynamicProxyMain {
+    public static void main(String[] args) {
+        ImplementsInterface implementsInterface=new ImplementsInterface();
+        DynamicProxyclass dynamicProxyclass=new DynamicProxyclass(implementsInterface);
+        ClassLoader classLoader=DynamicProxyMain.class.getClassLoader();
+        InterfaceProxy interfaceProxy;
+        interfaceProxy = (InterfaceProxy) Proxy.newProxyInstance(classLoader,
+                new Class[]{InterfaceProxy.class},dynamicProxyclass);
+        interfaceProxy.proxy();
+
+    }
+}
+
