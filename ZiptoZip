@@ -1,0 +1,108 @@
+package com.company;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+
+public class ZipToZip {
+    public static String str1= "D:\\Programs\\example.zip";
+    public static String str2="D:\\Programs\\extract.xml";
+    public static String str3="D:\\Programs\\zip.txt";
+    public static String str4="D:\\Programs\\final.zip";
+    public static void ZipFile() throws IOException{
+        InputStream inputStream=new FileInputStream(str1);
+        ZipInputStream zipInputStream=new ZipInputStream(inputStream);
+        ZipEntry zipEntry=zipInputStream.getNextEntry();
+        while (zipEntry!=null){
+            String str=zipEntry.getName();
+            if(str.endsWith("xml"))
+                extractingZip(zipInputStream);
+            zipEntry=zipInputStream.getNextEntry();
+        }
+        zipInputStream.close();
+        inputStream.close();
+    }
+    public static void extractingZip(ZipInputStream zipInputStream) throws IOException{
+        File file=new File(str2);
+        file.createNewFile();
+        OutputStream outputStream=new FileOutputStream(file);
+        byte[] b=new byte[1000];
+        int read=0;
+        while ((read=zipInputStream.read(b))!=-1){
+            outputStream.write(b,0,read);
+        }
+        outputStream.flush();
+        System.out.println("Zip file Extracted Successfully");
+        outputStream.close();
+        display();
+        xmlToTextFile();
+    }
+    public static void display() throws IOException {
+        try {
+            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document document =documentBuilder.parse(new File(str2));
+            document.getDocumentElement().normalize();
+            //System.out.println(document.getDocumentElement().getNodeName());
+            NodeList nodeList=document.getElementsByTagName("id");
+            for (int i=0;i<nodeList.getLength();i++){
+                System.out.println(nodeList.item(i).getTextContent());
+            }
+        } catch (ParserConfigurationException e) {
+            System.out.println("Error");
+        } catch (SAXException e) {
+            System.out.println("Error!");
+        }catch (Exception e){
+            System.out.println("Oops");
+        }
+    }
+    public static void xmlToTextFile() throws IOException {
+        File file1=new File(str2);
+        File file2=new File(str3);
+        FileReader fileReader=new FileReader(file1);
+        BufferedReader bufferedReader=new BufferedReader(fileReader);
+        BufferedWriter bufferedWriter=new BufferedWriter(new FileWriter(file2));
+        String str=bufferedReader.readLine();
+        while (str!=null){
+            bufferedWriter.write(str);
+            bufferedWriter.newLine();
+            str=bufferedReader.readLine();
+        }
+        bufferedWriter.flush();
+        System.out.println("File Converted from xml to txt Successfully");
+        bufferedReader.close();
+        bufferedWriter.close();
+        txtToZip();
+    }
+    public static void txtToZip() throws IOException {
+        File file=new File(str3);
+        FileReader fileReader=new FileReader(file);
+        InputStream inputStream=new FileInputStream(file);
+        File file1=new File(str4);
+        OutputStream outputStream=new FileOutputStream(file1);
+        ZipOutputStream zipOutputStream=new ZipOutputStream(outputStream);
+        ZipEntry zipEntry=new ZipEntry(file1.getName());
+        zipOutputStream.putNextEntry(zipEntry);
+        byte[] b=new byte[1000];
+        int read=0;
+        while ((read=inputStream.read(b))>=0){
+            zipOutputStream.write(b,0,read);
+        }
+        zipOutputStream.flush();
+        inputStream.close();
+        zipOutputStream.close();
+        System.out.println("Txt  to Zip Successfully");
+    }
+
+    public static void main(String[] args) throws IOException{
+        ZipFile();
+    }
+}
